@@ -1,0 +1,23 @@
+% = = = = = = = = = = = = = = = = = = = = = %
+%              Related Work                 %
+% = = = = = = = = = = = = = = = = = = = = = %
+
+\let\clearpage\relax
+\chapter{Related Work}
+
+In the field of computer architecture, there exist several different processor design to speed up computing from different perspectives.
+
+\section{MIPS Processor with Classical 5-stage Pipeline}
+One popular design is MIPS processor with classical 5-stage pipeline. This architecture, proposed by Stanford University, uses MIPS Instruction Set Architecture (ISA) and five-stages pipeline, which enables the processor to execute more than one instruction in one clock cycle. However, all instructions in the processor are executed in-order with a single arithmetic logic unit (ALU) \cite{MIPS_V_Stage}. Therefore, the average Instruction per Cycle (IPC) is less than five, which is not efficient enough.
+
+\section{Rocket Core}
+Another widely-used architecture is Rocket Core, which is designed by UC Berkeley. Compared to classical 5-stage MIPS processor, Rocket Core has a Floating Point Unit (FPU) and a co-processor, called ``ROCC''. The specialized FPU speeds up the floating-point computing. Meanwhile, the co-processor enables users to customize their instructions \cite{Rocket_Core}.
+
+\section{The Berkeley Out-of-Order Machine}\label{section: BOOM}
+For further improvement, UC Berkeley releases an architecture for out-of-order execution, called ``BOOM''. This structure has up to 10 pipeline stages. What's more, instructions are executed out-of-order in this processor \cite{Boom}. Therefore, it is far more efficient than previous structures.
+
+All architectures mentioned above do not have accelerator for machine learning or approximate computing. In comparison, our final product will have approximate computing unit in Execution stage to speed up machine learning. We believe that with these accelerators, our architecture will performance better in certain situations.
+
+\section{Hummingbird E203}
+Humming bird E203 is one of the most popular open-source RISC-V SoC among Chinese community and was designed by Zhenbo Hu's team in China \cite{E203}. It is designed for embedded systems with extremely low power consumption and circuit area, and is suitable for research purpose.
+

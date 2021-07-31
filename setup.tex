@@ -14,8 +14,8 @@
     %
     % 标题
     %
-    title           = {密院学位论文 \LaTeX{} 模板},
-    title*          = {A Sample Document for \LaTeX-based JI Thesis Template},
+    title           = {RISC-V处理器微架构的设计与优化},
+    title*          = {RISC-V SoC Design and Optimization},
     %
     % 标题页标题
     %   可使用“\\”命令手动控制换行
@@ -30,18 +30,18 @@
     %
     % 关键词
     %
-    keywords        = {上海交大, 密西根学院, LaTeX模板},
-    keywords*       = {SJTU, Joint Institute, LaTeX Template},
+    keywords        = {计算机体系结构, 系统级芯片, 嵌入式系统},
+    keywords*       = {Computer architecture, System on-chip, Embedded system},
     %
     % 姓名
     %
-    author          = {某\quad{}某},
-    author*         = {Mo Mo},
+    author          = {史\quad{}历},
+    author*         = {Li Shi},
     %
     % 指导教师
     %
-    supervisor      = {某某教授},
-    supervisor*     = {Prof. Mou Mou},
+    supervisor      = {钱炜慷},
+    supervisor*     = {Prof. Weikang Qian},
     %
     % 副指导教师
     %
@@ -50,7 +50,7 @@
     %
     % 学号
     %
-    id              = {517370910000},
+    id              = {517370910032},
     %
     % 学位
     %   本科生不需要填写
@@ -60,8 +60,8 @@
     %
     % 专业
     %
-    major           = {电子与计算机工程/机械工程},
-    major*          = {Electrical and Computer Engineering/Mechanical Engineering},
+    major           = {电子与计算机工程},
+    major*          = {Electrical and Computer Engineering},
     %
     % 所属院系
     %
@@ -208,12 +208,12 @@
 \renewcommand{\figurename}{Illustration}
 
 % Code
-\usepackage{minted}
+% \usepackage{minted}
 
 % JI Citation formatting
-\newcommand {\quickcite} [1] {(\parencite{#1}, \citeauthor{#1}, \citeyear{#1}: \citefield{#1}{pages})}
+\newcommand{\quickcite} [1] {(\parencite{#1}, \citeauthor{#1}, \citeyear{#1}: \citefield{#1}{pages})}
 
-\newcommand {\quickcitenopage} [1] {(\parencite{#1}, \citeauthor{#1}, \citeyear{#1})}
+\newcommand{\quickcitenopage} [1] {(\parencite{#1}, \citeauthor{#1}, \citeyear{#1})}
 
 \newcommand{\quickcitetwo}[2]{(\parencite{#1,#2}, \citeauthor{#1}, \citeyear{#1}: \citefield{#1}{pages}; \citeauthor{#2}, \citeyear{#2}: \citefield{#2}{pages})}
 

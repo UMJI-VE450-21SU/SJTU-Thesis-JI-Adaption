@@ -1,0 +1,30 @@
+% !TEX root = ../main.tex
+
+\begin{abstract}
+% = = = = = = = = = = = = = = = = = = = %
+%               中文摘要                % 
+% = = = = = = = = = = = = = = = = = = = %
+{
+在过去的几十年中，人们在不断研发更高性能的处理器。但是，由于物理及材料科学方面的限制，摩尔定律将在不久的将来达到瓶颈。这促使着工程师们在计算机体系结构领域进 行新的尝试，以此来突破瓶颈。近年来，随着系统级芯片(SoC)技术的发展和特定领域应用的需求，在特定领域进行架构设计与优化变得越来越普遍。例如，因为嵌入式系统中的人 工智能(AI)应用通常需要同时达到高性能、低功耗和低造价这三个要求，人工智能领域的嵌入式系统对现有的芯片体系提出了很大的挑战。在这个项目中，我们设计了一款基于 RISC-V 指令集的处理器。这款处理器支持四路超标量执行，并且具备指令动态规划能力。 我们同时对该处理器进行了众多优化。例如，我们添加了近似计算单元，用以提升特定领域的计算性能和能耗比。最终，我们将这款 SoC 与周边设备一同放入模拟软件中进行测试。周边设备包括:缓存，输入输出设备等。我们的处理器在性能、功耗和成本三方面达到了很好的平衡，并且在特定应用的嵌入式系统领域给用户提供了较好的体验。
+}
+
+\end{abstract}
+
+% 1.5倍行距
+{
+\setstretch{1.5}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{abstract*}
+
+% = = = = = = = = = = = = = = = = = = = %
+%               英文摘要                % 
+% = = = = = = = = = = = = = = = = = = = %
+{
+People have continuously pursued higher performance of processors in the past few decades. However, due to physical and material limitations, Moore's Law is reaching its boundary soon, forcing engineers to make new attempts in the field of computer architecture. Domain-specific architecture design and optimization is increasingly popular recently with emerging technology in systems on-chip (SoC) design as well as the need for domain-specific applications. One of the main challenges is raised from the domain of AI-oriented embedded systems, as AI applications in embedded systems usually require high performance, low power consumption and low cost at the same time. In this project, based on RISC-V instruction set architecture (ISA), we design a processor that supports 4-way superscalar execution and instruction dynamic scheduling. We apply further optimizations, e.g., approximate computing units, to enhance performance and energy efficiency for domain-specific applications. Finally, we set up the SoC and peripheral components including cache and I/O devices in software simulator tools. Our processor keeps a good performance-energy-cost balance and offers users good experience for specific applications in embedded systems.
+}
+
+\end{abstract*}
+
+}
