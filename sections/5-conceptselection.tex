@@ -6,45 +6,46 @@
 \chapter{Concept Selection}
 
 \section{ISA}\label{section:isa} %sj
-The exist several popular instruction set architectures (ISA), such as x86, MIPS, ARMv7 and RISC-V. As we mentioned before, they can be classified by their architectural complexity. Since complex instruction set computer (CISC) is too complicated, we choose among reduced instruction set computers (RISC). Following are three widely-used reduced instruction set computers.
+There exist several popular instruction set architectures (ISAs), such as x86, MIPS, ARMv7 and RISC-V. As we mentioned before, they can be classified by their architectural complexity, e.g., memory addressing modes and instruction length. Since complex instruction set computer (CISC) ISAs are usually not open-source and too complicated for our project, we choose among reduced instruction set computer (RISC) ISAs. Following are three widely-used RISC ISAs.
 
 \begin{enumerate}
-\item \textbf{MIPS:} Microprocessor without Interlocked Pipeline Stages (MIPS) is a RISC ISA developed by MIPS Computer System. It is widely used in computer architecture courses for university students. Most of group members are familiar with MIPS Instructions and have develop experience on it.
+\item \textbf{MIPS:} MIPS is a RISC ISA developed by MIPS Computer Systems. It is widely used in industry and also computer architecture courses for university students. Most of group members are familiar with MIPS Instructions and have development experience on it.
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=0.7\textwidth]{figure/MIPS-instruction-format-18.png}
-    \caption{MIPS instruction format\cite{mips_ist}.}
+    \caption{MIPS instruction format\quickcitenopage{mips_ist}.}
     \label{fig:mips_inst}
 \end{figure}
 
-However, with years of development, the design space of MIPS has been exploited, which will be an obstacle to further research.
-\item \textbf{ARMv7:} Advanced RISC Machines (ARM) is a family of RISC ISA developed by Arm Ltd. Among them, ARMv7 is a classic structure that be applied in many areas. Due to its low cost, minimal power consumption, and low heat generation rate, ARMv7 is desirable for light, portable, battery-powered devices, such as smartphoes, laptops and other embedded systems.
+However, with many years of development, the design space of MIPS has been exploited, which will be an obstacle to further research. For example, originally branch delay slots are designed for reduce the cost of branch mis-prediction. However, it introduces unnecessary design complexity and does not always result in performance improvement.
+
+\item \textbf{ARMv7:} ARM is a family of RISC ISA developed by Arm Ltd. Among them, ARMv7 is a classic structure applied in many areas. Due to its low cost, low power consumption, and low heat generation rate, ARMv7 is an ideal choice for light, portable, battery-powered devices, such as smartphones, Intenet of things (IoT) and other kinds of embedded systems.
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=0.85\textwidth]{figure/arm_ist.png}
-    \caption{ARM instruction format\cite{arm_ist}.}
+    \caption{ARM instruction format\quickcitenopage{arm_ist}.}
     \label{fig:arm_ist}
 \end{figure}
 
-However, ARM does not allow users to custom their instructions without the company's permission. Therefore, it has no custom design space for us. What's more, to support more features, ARM has many rarely-used components, which means it is difficult us to implement in only three months.
+However, ARM does not allow users to custom their instructions without permission, i.e., we don't have design space to support our own customized instructions. Furthermore, to support more features, there are many advanced instructions and techniques in the ISA specifications, which means that it is difficult for us to implement in a short period.
 
-\item \textbf{RISC-V:} RISC-V is an open standard RISC ISA. Unlike most other ISA designs, the RISC-V ISA is provided under open source licenses that do not require fees to use. Besides, RISC-V is also a newly-emerged ISA. It is first introduced in 2010 and still has a lot of design space to improve. Therefore, it becomes our ideal ISA to choose.
+\item \textbf{RISC-V:} RISC-V is an open standard RISC ISA. Unlike most other ISA designs, the RISC-V ISA is provided under open source license, i.e, it is completely free to use. Besides, RISC-V is also an emerging ISA during the past decade, which was initially introduced in 2010. It is simple but powerful for embedded system design. Therefore, it becomes our ideal ISA to implement in our processor design.
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=0.85\textwidth]{figure/riscv-isa.png}
-    \caption{RISC-V instruction format\cite{RISC-V_unprivileged_ISA}.}
+    \caption{RISC-V instruction format\quickcitenopage{RISC-V_unprivileged_ISA}.}
     \label{fig:RISCV_inst}
 \end{figure}
 
-However, compared to ARMv7, RISC-V supports less instructions, which means its feature is limited. But, it also means that RISC-V is easier to be implemented.
+However, compared to ARMv7 and MIPS, RISC-V supports fewer instructions, resulting in limited functions.
 
 \end{enumerate}
 
 \section{Microarchitecture} %sl
-As mentioned in the previous section, microarchitecture determines the performance, power consumption and also cost of a processor and as a result is key to the success of a processor product. In this section, we use decision matrix to select our microarchitecture design based on customer requirements and engineering specifications. Fig.~\ref{fig:dm-uarch} shows the decision matrix of microarchitecture design.
+As mentioned in the previous section, microarchitecture determines the performance, power consumption and also cost of a processor and as a result is key to the success of a processor product. In this section, we use decision matrix to select our microarchitecture design based on customer requirements and engineering specifications. Illustration~\ref{fig:dm-uarch} shows the decision matrix of microarchitecture design.
 
 \begin{figure}[!htp]
     \centering
@@ -64,38 +65,37 @@ Finally, according to the decision matrix, we choose to implement superscalar an
 
 \subsection{Verification}
 \subsubsection{Logic Simulation}
-We need logic simulator that is free to use, so we have following options:
+Logic simulation is the process to verify the correctness of our processor design. We need a logic simulator that is free to use, so we have following options:
 \begin{enumerate}
-    \item \textbf{Vivado Webpack Xsim}. Vivado Webpack Xsim is the simulator used in Vivado IDE. It supports most SystemVerilog features for verification and design. It will provide user good experience if it is used with the Vivado IDE. However, this means it is less flexible.
-    \item \textbf{Icarus Verilog}. It is a open-source Verilog / SystemVerilog simulation and synthesize tool. It turns the Verilog / SystemVerilog to some intermediate form to perform synthesize and simulation. It support both the SystemVerilog verification language and design language, but it has low performance for simulation.
-    \item \textbf{Verilator}. It is another open-source Verilog / SystemVerilog simulator. It turns Verilog / SystemVerilog models into C/C++ models, and use C++ as the verification language. Although it do not support the verification language of SystemVerilog, it have very good performance for simulation.
+    \item \textbf{Vivado Webpack Xsim}. Vivado Webpack Xsim is the simulator used in Vivado integrated development environment (IDE). It supports most SystemVerilog features for design and verification. It provides user good experience if they use Vivado IDE to develop and debug, but it also means that users have less flexibility.
+    \item \textbf{Icarus Verilog}. It is an open-source Verilog / SystemVerilog logic simulation tool, which converts the Verilog / SystemVerilog source code to an intermediate form and then performs behavioral simulation. It supports both SystemVerilog design language and verification language, but the performance for simulation is relatively low.
+    \item \textbf{Verilator}. It is another open-source Verilog / SystemVerilog simulator, which converts Verilog / SystemVerilog models into C/C++ models, and uses C++ as the verification language. Although it does not support the verification language of SystemVerilog, the performance for simulation is satisfying.
 \end{enumerate}
-There are other commercial software for this task, however, all of them need license which is expensive. Therefore, we make our decision only within the free-to-use ones.
+There are other commercial software tools for this task. However, all of them require expensive commercial license.
 
-Our final decision is to use both Vivado Webpack Xsim and  Verilator. We use the Vivado Webpack because it is convenient to debug considerably small design in the Vivado IDE. We choose Verilator to simulate the integrated SoC and use Verilator to build our simulation environment. C++ is a much more powerful language than SystemVerilog, and it brings productivity when we build the simulation system. We do not choose Icarus Verilog due to both its poor performance and because it is hard to integrate it with the other parts in the simulation system.
+Our final decision is to use both Vivado Webpack Xsim and Verilator. We use Vivado Webpack as it is convenient to debug considerably small design in the Vivado IDE. We choose Verilator to simulate the integrated SoC and use it to build our simulation environment. C++ is a much more powerful language than SystemVerilog, and it brings productivity when we build the simulation system. We do not choose Icarus Verilog due to both its poor performance and its difficulty to integrate with the other parts in the simulation system.
 
 \subsubsection{Functional Verification}
-The key part for the functional verification is to choose a proper simulator/ emulator as a comparison model. Followings are some popular choices:
+The key part for the functional verification is to choose a proper simulator / emulator as a comparison model. Followings are some popular choices:
 \begin{enumerate}
-    \item \textbf{Gem5}. Gem5 is an open source computer architecture simulator used in academia and in industry. It is a very complete and complicate simulator. It provides supports for multiple architecture, including ARM, MIPS, X86, etc. It also provide multiple models for memory system simulation.
-    \item \textbf{Qemu}. Qemu is a popular emulator, which dynamically translate the target binary to the host's machine code. Therefore, the user can run RISC-V programs on a X86 machine. This emulator can perform not only user level simulation, but also system level simulation.
-    \item \textbf{Spike}. The spike simulator is a lightweight simulator, which implements the RISC-V specification. It is often considered as a golden model for RISC-V specification.
+    \item \textbf{Gem5}. Gem5 is an open-source computer architecture simulator used in both academia and industry. It is a very complete but complicate simulator, which provides support for multiple ISAs, including ARM, MIPS, X86, etc. It also provides multiple models for microarchitecture and memory system simulation.
+    \item \textbf{Qemu}. Qemu is a popular emulator, which dynamically translate the target binary to the host machine code. Therefore, the user can execute RISC-V programs on a X86 or ARM machine. This emulator can perform not only user level simulation, but also system level simulation.
+    \item \textbf{Spike}. Spike is a lightweight simulator, which implements the RISC-V ISA specifications. It is often considered as a golden model for RISC-V ISA.
 \end{enumerate}
 
-In this project, we focus on the RISC-V ISA. Also, we use the simulator only to verify the functionality correctness of our design, so we do not need a complicated simulator like gem5. Qemu is a emulator so it cannot provide information about program execution trace, which is a critical part to compare to verify our design. Therefore, our final decision is to use spike simulation. Spike is also easier to change to integrate into our simulation system.
+In this project, we focus on the RISC-V ISA. Also, we use the simulator only to verify the functionality correctness of our design, so we do not need a complicated simulator like gem5. Qemu is an emulator so it cannot provide adequate information about program execution trace, which is a critical part to compare to verify our design. Therefore, our final decision is to use Spike simulator. Spike is also easier to modify and integrate into our simulation system.
 
 
 \subsection{SoC Integration}
-There exists a vast design space for SoC Integration and it is mainly depends on the need. We want our SoC Integration and simulation system makes following tasks more convenient:
+There exists a vast design space for SoC integration, mainly depending on the customer requirements. Our SoC integration and simulation system should be able to complete the following tasks conveniently and efficiently:
 \begin{enumerate}
     \item The process of loading and executing program.
-    \item The process of reading inputs.
-    \item The process of printing message.
-    \item The process of saving outputs.
+    \item The process of reading inputs and saving outputs.
+    \item The process of printing messages.
 \end{enumerate}
-Plus, we want the Integration need less effort. The SoC Integration scheme and the whole simulation system integration scheme is thus referred to Spike. Although spike is an architectural level simulator, its internal structure includes an SoC as well as a well designed, lighted weighted simulation environment.
+The SoC integration scheme and the whole simulation system integration scheme is thus referred to Spike. Although Spike is an architectural level simulator, its internal structure includes an SoC as well as a well-designed, lightweight simulation environment.
 
-Figure \ref{fig:450-soc-sys} is a high-level overview of the simulation environment configuration. This figure can serve as a description of the system for both our Verilator-based simulation system as well as the Spike's model, although the internal details are totally different. All the SoC integrate the CPU core with the peripheral devices like RAM and ROM through a system level bus. The simulation environment lies on a host machine, which communicate with the SoC through a pure-software frontend server. The frontend server can perform tasks like load program into the memory as well as proxy some requests from the CPU core. The program running on the CPU can communicate with the front-end server at system level through valuables in the program. The front-end server will link to that register when it loads the program into the RAM. By writing values to and reading values from the valuables, the program can perform tasks like opening a file, writing to a file, etc.
+Illustration~\ref{fig:450-soc-sys} is a high-level overview of the simulation environment configuration. This illustration can serve as a description of the system for both our Verilator-based simulation system as well as the Spike simulation model, although the internal details are totally different. The SoC integrates the CPU core with the peripheral devices like RAM and ROM through a system level bus. The simulation environment lies on a host machine, which communicates with the SoC through a pure-software frontend server. The frontend server can perform tasks like loading program into the memory as well as transmitting some requests from the CPU core to the host machine. The program running on the CPU can communicate with the frontend server at system level through global variables in the program. The frontend server will link to those global variables when it loads the program into the RAM. By writing values to and reading values from the global variables, the program can perform tasks like opening a file, writing to a file, etc.
 
 \begin{figure}[!htp]
     \centering

@@ -24,20 +24,18 @@ Therefore, a good microarchitecture design is key to a successful processor prod
 In terms of the number of instructions that can be executed at the same time, we have scalar design and superscalar design. Fig.~\ref{fig:superscalar} demonstrates the difference between two kinds of design. While scalar design is able to execute one instruction at a time, superscalar design supports multiple channels to execute the instructions. Theoretically, for example, a 2-way superscalar design can double the performance. However, in reality, due to many external factors, e.g., data and control dependency, the speed-up ratio should be between 1 and 2.
 
 \begin{figure}[!htp]
-  \begin{minipage}{0.4\textwidth}
-      \centering
-      % include first image
+    \centering
+    \begin{subfigure}{0.4\textwidth}
       \includegraphics[width=\textwidth]{figure/scalar.png}
       \caption{Scalar execution.}
       \label{fig:superscalar-1}
-  \end{minipage}\hfill
-  \begin{minipage}{0.4\textwidth}
-      \centering
-      % include second image
+  \end{subfigure}
+  ~
+  \begin{subfigure}{0.4\textwidth}
       \includegraphics[width=\textwidth]{figure/superscalar.png}
       \caption{2-way superscalar execution.}
       \label{fig:superscalar-2}
-  \end{minipage}
+  \end{subfigure}
   \caption{Scalar vs. superscalar processor design.}
   \label{fig:superscalar}
 \end{figure}

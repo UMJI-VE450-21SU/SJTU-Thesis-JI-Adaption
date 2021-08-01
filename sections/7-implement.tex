@@ -42,53 +42,10 @@ To make our processor ``understand'' those operations assigned, we will first bu
 
 After the program is translated to assembly code, it is ready to be transported into the Memory and run on the RISC-V core that we are going to build. The Memory core is simulator of the DRAM, which is always on a separate chip other than the CPU chip in a real case. The RISC-V core will be written in System Verilog, which is hardware description language used to design and test electronic systems. The detailed design of our RISC-V core is demonstrated in Section \ref{section：Microarchitecture}. 
 
-After finishing the Memory and RISC-V Core, we need to perform several level of verification towards our designed circuit because a functional-correct design might not be practical for real circuit synthesis. The whole verification includes memory correctness, simulation correctness and synthesis correctness. We uses tools such as Spike, Verilator and Vivado. The details will be discussed in \ref{section: Validation Plan}.
+After finishing the Memory and RISC-V Core, we need to perform several level of verification towards our designed circuit because a functional-correct design might not be practical for real circuit synthesis. The whole verification includes memory correctness, simulation correctness and synthesis correctness. We uses tools such as Spike, Verilator and Vivado. The details will be discussed in \ref{section: Validation}.
 
-\section{Validation Plan} \label{section: Validation Plan}
-We introduce the validation plan through a top-down approach: we will first introduce the software stack, then the simulator architecture. We validate our design by comparing the simulation of our CPU model and an golden Risc-v reference model, Spike. The software need to compile the source code into binary that can use the approximate computation units in the model as well as can run on these two target. 
-
-\subsection{Customized Instructions} \label{section：Customized Instructions} %lzy 
-For floating point execution units, especially in our design, we support both accurate computation and approximate computation at the same time. The advantage of approximate computation over accurate floating point computation is that it is fast and have low power usage. For embedded systems that require fast calculation, low power consumption, and relatively low calculation accuracy, approximate computation is preferred. In order to support users to call our approximate floating-point computing units in ordinary C programs, we have added customized instructions to RISC-V F standard extension and D standard extension. These two standard extensions of RISC-V are used to support operations for single-precision floating-point and double-precision floating-point respectively.
-
-\subsubsection{Floating Point Register State}
-
-To support the RISC-V F standard extension instruction set and D extension instruction set, 32 floating-point registers are added, named \texttt{f0} – \texttt{f31}, each \texttt{FLEN} bits wide with a floating-point control and status register \texttt{fcsr} handling the operating mode and exception status of the floating-point unit. For RISC-V standard F extension only,  \texttt{FLEN = 32}. If both F extension and D extension are supported, \texttt{FLEN = 64} such that floating point registers can now hold either 32-bit or 64-bit floating point values \cite{RISC-V_unprivileged_ISA}. 
-
-\begin{figure}[!htp]
-    \centering
-    \includegraphics[width=0.5\linewidth]{figure/F register state.png}
-    \caption{RISC-V F register state \cite{RISC-V_unprivileged_ISA}.}
-    \label{fig:risc-v F register state}
-\end{figure}
-
-\subsubsection{Floating Point Customized Instructions}
-
-Similar to the standard floating-point arithmetic instructions with one or two source operands, our customized approximate computation instructions use the R-type format with the OP-FP major opcode \cite{RISC-V_unprivileged_ISA}. \texttt{FMULA.S} or \texttt{FMULA.D} performs the approximate single-precision or double-precision floating point multiplication of \texttt{rs1} times \texttt{rs2} respectively and store the results to \texttt{rd}. \texttt{FDIVA.S} or \texttt{FDIVA.D} performs the approximate single-precision or double-precision floating point division of \texttt{rs1} by \texttt{rs2} and write the results to \texttt{rd}.
-
-The encoding of the 2-bit floating point format field \texttt{fmt} is shown in Fig.~\ref{fig:format field enconding}. For all instructions in the F extension, it is set to S(00), and for all instructions in the D extension, it is set to D(01) \cite{RISC-V_unprivileged_ISA}.
-
-\begin{figure}[!htp]
-    \centering
-    \includegraphics[width=0.5\linewidth]{figure/fmt.png}
-    \caption{Format field encoding \cite{RISC-V_unprivileged_ISA}.}
-    \label{fig:format field enconding}
-\end{figure}
-
-All floating-point operations that need to perform rounding can select corresponding rounding mode through \texttt{rm} field and the encoding for \texttt{rm} field is shown in Fig.~\ref{fig:rounding mode encoding} \cite{RISC-V_unprivileged_ISA}.
-\begin{figure}[!htp]
-    \centering
-    \includegraphics[width=0.8\linewidth]{figure/rounding mode encoding.png}
-    \caption{Rounding mode encoding \cite{RISC-V_unprivileged_ISA}.}
-    \label{fig:rounding mode encoding}
-\end{figure}
-
-Finally, our customized approximate computation instructions are listed in Fig.~\ref{fig:customized approximated computation instructions}. The formats should be \texttt{fmula.s}/\texttt{fdiva.s}/\texttt{fmula.d}/\texttt{fdiva.d} \texttt{rd rs1 rs2}. 
-\begin{figure}[!htp]
-    \centering
-    \includegraphics[width=0.8\linewidth]{figure/instruction.png}
-    \caption{Customized approximated computation instructions.}
-    \label{fig:customized approximated computation instructions}
-\end{figure}
+\section{Validation} \label{section: Validation}
+We introduce the validation part through a top-down approach: we will first introduce the software stack, then the simulator architecture. We validate our design by comparing the simulation of our CPU model and an golden RISC-V reference model, Spike. The software need to compile the source code into binary that can use the approximate computation units in the model as well as can run on these two target. 
 
 \subsection{Program layout in memory} %yyc
 We need a clear picture about how the program layouts in the simulator and Spike so that we can control the IO behavior of the program, like refering to where to fetch instructions, data and output result. The layout of the program and the physical address space of both the Spike is shown in the Fig.~\ref{fig:450-addr-sapce}. The left hand side shows how will the program be loaded into our verification environment. The \texttt{data} and \texttt{bss} segments are placed starting from 0x10000000 and the text segment is placed start from 0x80000000. The stack is set to start from 0x20000000, growing downwards. 
