@@ -21,6 +21,8 @@ Besides, we need to balance our workload and supported features. RISC-V supports
 \subsection{Microarchitecture} \label{section：Microarchitecture}% sl 
 We have used the decision matrix to determine the final design of our processor microarchitecture design. Specifically, we determine to implement superscalar and out-of-order features in our design, which matches most of customer requirements. For example, in the aspect of performance, our superscalar out-of-order design provides good performance especially in those computing-intensive tasks. It matches the engineering specifications we set earlier, including supporting instruction dynamic scheduling, etc., and provides a good performance-power-cost balance.
 
+\section{Design Description of ISA} % lzy - consider moving customized instructions to here
+
 \section{Design Description of Microarchitecture}
 In this part, we will explain our design details of each microarchitecture pipeline stages. A simplified pipeline design diagram is shown in Fig.~\ref{fig:pipeline}. Our processor supports 4-way superscalar execution and instruction dynamic scheduling, dividing into two parts: frontend and backend. In the frontend, there are 4 stages: instruction fetch (IF), instruction decode (ID), register renaming (RR), dispatch (DP). In the backend, there are 5 stages: issue (IS), register file (RF), execution (EX), write back (WB), and commit (CM).
 
